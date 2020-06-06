@@ -8,10 +8,12 @@ import {
 import { ApiTags, ApiCreatedResponse, ApiParam, ApiOkResponse } from '@nestjs/swagger';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { Account } from '../models/account.model';
+import { AccountsService } from '../services/accounts.service';
 
 @ApiTags('accounts')
 @Controller('accounts')
 export class AccountsController {
+  constructor(private service: AccountsService) { }
 
   @Get('/:id')
   @ApiParam({
@@ -36,6 +38,7 @@ export class AccountsController {
   async add(
     @Body() object: CreateAccountDto
   ): Promise<Account> {
+    this.service.add(object);
     return null;
   }
 }

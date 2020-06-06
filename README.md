@@ -9,6 +9,8 @@ This api is based on CQRS and event sourcing architecture with [Nest](https://gi
 ```bash
 # eventstore + mongodb + mongodb express
 $ docker-compose up
+# persistent subscription to eventstore 
+$ ./scripts/init-subscription.sh
 
 # api
 $ npm install
