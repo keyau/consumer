@@ -42,6 +42,8 @@ $ npm run test:cov
 
 ## Urls
 
+Swagger Api : http://localhost:3000/api/#/
+
 Eventstore : http://localhost:2113/web/index.html#/ (login: admin / password : changeit)
 
 MongoDb : http://localhost:8081/

@@ -9,6 +9,8 @@ import { AppService } from './app.service';
 import eventstore from './config/eventstore';
 import { eventStoreBusConfig } from './event-bus.provider';
 
+import { AccountsModule } from './accounts/accounts.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,9 +29,10 @@ import { eventStoreBusConfig } from './event-bus.provider';
       },   
       eventStoreBusConfig,
     ),
-    TypegooseModule.forRoot("mongodb://accountUser:example@localhost:27017/nest")
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    TypegooseModule.forRoot("mongodb://defaultUser:password@localhost:27017/consumer"),
+    AccountsModule
+  ]
+  /*controllers: [AppController],
+  providers: [AppService],*/
 })
 export class AppModule {}
