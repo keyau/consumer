@@ -1,6 +1,32 @@
-version: '3.1'
+version: '3.4'
 
 services:
+
+  app:
+    container_name: api
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    command: >
+      sh -c "./scripts/wait-for-it.sh eventstore:1113
+      && sleep 10
+      && ./scripts/init-subscription.sh
+      && npm run start:dev"
+    environment: 
+      EVENT_STORE_TCP_HOST: eventstore
+      EVENT_STORE_TCP_PORT: 1113
+      EVENT_STORE_USERNAME: admin
+      EVENT_STORE_PASSWORD: changeit
+      MONGODB_URI: mongodb://defaultUser:password@mongo:27017/consumer
+    networks:
+      - backend
+    depends_on:
+      - eventstore
 
   mongo:
     image: mongo
@@ -15,6 +41,8 @@ services:
       MONGO_INITDB_USERNAME: defaultUser
       MONGO_INITDB_PASSWORD: password
       MONGO_INITDB_DATABASE: consumer
+    networks:
+      - backend
     
   mongo-express:
     image: mongo-express
@@ -24,6 +52,10 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: password
+    networks:
+      - backend
+    depends_on:
+      - mongo 
 
   eventstore:
     image: eventstore/eventstore
