@@ -38,7 +38,6 @@ export class AccountsController {
   async add(
     @Body() object: CreateAccountDto
   ): Promise<Account> {
-    this.service.add(object);
-    return null;
+    return this.service.add(object);
   }
 }

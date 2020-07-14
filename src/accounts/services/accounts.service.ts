@@ -4,13 +4,14 @@ import { Account } from '../models/account.model';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { AddAccountCommand } from '../commands/impl/add-account.command';
 import { Guid } from 'src/tools/guid';
+import { AccountAggregate } from '../models/account.aggregate';
 
 @Injectable()
 export class AccountsService {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {
   }
   
-  protected async executeCommand(command: ICommand): Promise<void> {
+  protected async executeCommand(command: ICommand): Promise<any> {
     if (this.commandBus instanceof CommandBus) {
       return await this.commandBus.execute(command);
     }
@@ -22,8 +23,10 @@ export class AccountsService {
     }
   }
 
-  async add(object: CreateAccountDto): Promise<void> {
+  async add(object: CreateAccountDto): Promise<Account> {
     let account: Account = new Account(Guid.create_UUID(), object);
-    return await this.executeCommand(new AddAccountCommand(account));
+    let accountCreated: AccountAggregate = await this.executeCommand(new AddAccountCommand(account));
+
+    return new Account(accountCreated._id, accountCreated);
   }
 }
