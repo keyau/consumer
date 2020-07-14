@@ -6,6 +6,7 @@ import { AccountsService } from './services/accounts.service';
 import { AccountRepository } from './repositories/account.repository';
 import { AccountCommandHandlers } from './commands/handler';
 import { AccountEventHandlers } from './events/handlers';
+import { AccountQueryHandlers } from './queries/handler';
 
 @Module({
   imports: [TypegooseModule.forFeature([Account])],
@@ -14,7 +15,8 @@ import { AccountEventHandlers } from './events/handlers';
     AccountsService,
     AccountRepository,
     ...AccountCommandHandlers,
-    ...AccountEventHandlers
+    ...AccountEventHandlers,
+    ...AccountQueryHandlers,
   ]
 })
 export class AccountsModule {}

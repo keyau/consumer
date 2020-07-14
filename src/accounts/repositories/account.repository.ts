@@ -1,4 +1,4 @@
-import { Logger } from "@nestjs/common";
+import { Logger, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "nestjs-typegoose";
 import { ReturnModelType } from "@typegoose/typegoose";
 import { Account } from "../models/account.model";
@@ -50,7 +50,7 @@ export class AccountRepository {
     }
   }
 
-  /*async findById(id: string): Promise<Person> {
+  async findById(id: string): Promise<Account> {
     this.logger.verbose('FIND BY ID');
     console.table({ id });
     try {
@@ -64,5 +64,5 @@ export class AccountRepository {
       this.logger.verbose(message.verbose);
       throw error;
     }
-  }*/
+  }
 }

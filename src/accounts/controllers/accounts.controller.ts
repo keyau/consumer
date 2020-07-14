@@ -27,7 +27,7 @@ export class AccountsController {
   async read(
     @Param('id') id: string,
   ): Promise<Account> {
-    return null;
+    return this.service.read(id);
   }
   
   @Post()

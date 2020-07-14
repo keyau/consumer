@@ -5,6 +5,7 @@ import { CreateAccountDto } from '../dto/create-account.dto';
 import { AddAccountCommand } from '../commands/impl/add-account.command';
 import { Guid } from 'src/tools/guid';
 import { AccountAggregate } from '../models/account.aggregate';
+import { ReadAccountQuery } from '../queries/impl/read-account.query';
 
 @Injectable()
 export class AccountsService {
@@ -21,6 +22,10 @@ export class AccountsService {
     if (this.queryBus instanceof QueryBus) {
       return await this.queryBus.execute(query);
     }
+  }
+
+  async read(id: string): Promise<Account> {
+    return await this.executeQuery(new ReadAccountQuery(id));
   }
 
   async add(object: CreateAccountDto): Promise<Account> {
