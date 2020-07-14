@@ -11,7 +11,7 @@ export class AddAccountCommandHandler
     this.logger = new Logger(this.constructor.name);
   }
 
-  async execute(command: AddAccountCommand): Promise<AccountAggregate> {
+  async execute(command: AddAccountCommand): Promise<void> {
     this.logger.log('COMMAND TRIGGERED: AddCommandHandler...');
     const { account } = command;
     const personAggregate = this.publisher.mergeObjectContext(
@@ -19,7 +19,5 @@ export class AddAccountCommandHandler
     );
     personAggregate.add();
     personAggregate.commit();
-
-    return personAggregate;
   }
 }

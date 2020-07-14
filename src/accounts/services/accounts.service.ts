@@ -12,7 +12,7 @@ export class AccountsService {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {
   }
   
-  protected async executeCommand(command: ICommand): Promise<any> {
+  protected async executeCommand(command: ICommand): Promise<void> {
     if (this.commandBus instanceof CommandBus) {
       return await this.commandBus.execute(command);
     }
@@ -30,8 +30,7 @@ export class AccountsService {
 
   async add(object: CreateAccountDto): Promise<Account> {
     let account: Account = new Account(Guid.create_UUID(), object);
-    let accountCreated: AccountAggregate = await this.executeCommand(new AddAccountCommand(account));
-
-    return new Account(accountCreated._id, accountCreated);
+    await this.executeCommand(new AddAccountCommand(account));
+    return account;
   }
 }
