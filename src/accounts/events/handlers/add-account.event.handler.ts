@@ -1,7 +1,7 @@
 import { EventsHandler, IEventHandler } from "@nestjs/cqrs";
 import { AccountAddedEvent } from "../impl/account-added.event";
 import { Logger } from "@nestjs/common";
-import { AccountRepository } from "src/accounts/repositories/account.repository";
+import { AccountRepository } from "../../repositories/account.repository";
 
 @EventsHandler(AccountAddedEvent)
 export class AddAccountEventHandler implements IEventHandler<AccountAddedEvent> {

@@ -2,9 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { response } from 'express';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  let accountId;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -15,10 +17,32 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('POST /accounts', () => {
+    let data = {
+      'nbCredits': 10
+    };
+
     return request(app.getHttpServer())
-      .get('/')
+      .post('/accounts')
+      .send(data) 
+      .expect(201)
+      .then((response) => {
+        expect(response.body.nbCredits).toBe(data.nbCredits);
+        accountId = response.body._id;
+      });
+  });
+
+  it('GET /accounts/:id', () => {
+    return request(app.getHttpServer())
+      .get('/accounts/' + accountId) 
       .expect(200)
-      .expect('Hello World!');
+      .then((response) => {
+        expect(response.body._id).toBe(accountId);
+        expect(response.body.nbCredits).toBe(10);
+      });
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });

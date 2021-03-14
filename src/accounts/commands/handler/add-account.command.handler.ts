@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler, EventPublisher } from "@nestjs/cqrs";
 import { AddAccountCommand } from "../impl/add-account.command";
 import { Logger } from "@nestjs/common";
-import { AccountAggregate } from "src/accounts/models/account.aggregate";
+import { AccountAggregate } from "../../models/account.aggregate";
 
 @CommandHandler(AddAccountCommand)
 export class AddAccountCommandHandler

@@ -3,7 +3,7 @@ import { CommandBus, QueryBus, ICommand, IQuery } from '@nestjs/cqrs';
 import { Account } from '../models/account.model';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { AddAccountCommand } from '../commands/impl/add-account.command';
-import { Guid } from 'src/tools/guid';
+import { Guid } from '../../tools/guid';
 import { AccountAggregate } from '../models/account.aggregate';
 import { ReadAccountQuery } from '../queries/impl/read-account.query';
 
@@ -13,15 +13,11 @@ export class AccountsService {
   }
   
   protected async executeCommand(command: ICommand): Promise<void> {
-    if (this.commandBus instanceof CommandBus) {
-      return await this.commandBus.execute(command);
-    }
+    return await this.commandBus.execute(command);
   }
 
   protected async executeQuery(query: IQuery): Promise<any> {
-    if (this.queryBus instanceof QueryBus) {
-      return await this.queryBus.execute(query);
-    }
+    return await this.queryBus.execute(query);
   }
 
   async read(id: string): Promise<Account> {
