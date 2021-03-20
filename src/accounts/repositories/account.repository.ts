@@ -1,12 +1,12 @@
 import { Logger, NotFoundException } from "@nestjs/common";
-import { InjectModel } from "nestjs-typegoose";
-import { ReturnModelType } from "@typegoose/typegoose";
-import { Account } from "../models/account.model";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { Account, AccountDocument } from "../models/account.model";
 
 export class AccountRepository {
 
   private logger: Logger;
-  constructor(@InjectModel(Account) private model: ReturnModelType<typeof Account>) {
+  constructor(@InjectModel(Account.name) private model: Model<AccountDocument>) {
     this.logger = new Logger(`${this.model.modelName}Repository`);
   }
 

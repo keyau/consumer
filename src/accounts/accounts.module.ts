@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
-import { TypegooseModule } from 'nestjs-typegoose';
-import { AccountsController } from './controllers/accounts.controller';
-import { Account } from './models/account.model';
-import { AccountsService } from './services/accounts.service';
-import { AccountRepository } from './repositories/account.repository';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AccountCommandHandlers } from './commands/handler';
+import { AccountsController } from './controllers/accounts.controller';
 import { AccountEventHandlers } from './events/handlers';
+import { Account, AccountSchema } from './models/account.model';
 import { AccountQueryHandlers } from './queries/handler';
+import { AccountRepository } from './repositories/account.repository';
+import { AccountsService } from './services/accounts.service';
 
 @Module({
-  imports: [TypegooseModule.forFeature([Account])],
+  imports: [MongooseModule.forFeature([{ name: Account.name, schema: AccountSchema }])],
   controllers: [AccountsController],
   providers: [
     AccountsService,

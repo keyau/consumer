@@ -1,7 +1,11 @@
-import { IAccount } from "./account.model.interface";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
-import { prop } from '@typegoose/typegoose';
+import { Document } from 'mongoose';
+import { IAccount } from "./account.model.interface";
 
+export type AccountDocument = Account & Document;
+
+@Schema()
 export class Account implements IAccount {
   constructor(id: string, account?: any) {
     this._id = id;
@@ -14,12 +18,14 @@ export class Account implements IAccount {
     description: 'The ID of account',
     required: true
   })
-  @prop({ required: true, unique: true })
+  @Prop()
   _id: string;
 
   @ApiProperty({
     description: 'The number of credits'
   })
-  @prop({ required: false })
+  @Prop({ required: false })
   nbCredits: number;
 }
+
+export const AccountSchema = SchemaFactory.createForClass(Account);

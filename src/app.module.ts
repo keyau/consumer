@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { EventStoreCqrsModule } from './event-store/eventstore-cqrs/index';
-import { TypegooseModule } from 'nestjs-typegoose';
-
+import { MongooseModule } from '@nestjs/mongoose';
+import { AccountsModule } from './accounts/accounts.module';
 import eventstore from './config/eventstore';
 import mongo from './config/mongo';
 import { eventStoreBusConfig } from './event-bus.provider';
+import { EventStoreCqrsModule } from './event-store/eventstore-cqrs/index';
 
-import { AccountsModule } from './accounts/accounts.module';
+
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { AccountsModule } from './accounts/accounts.module';
       },   
       eventStoreBusConfig,
     ),
-    TypegooseModule.forRootAsync(
+    MongooseModule.forRootAsync(
       {
         useFactory: async (config: ConfigService) => ({
           uri: config.get('mongo.uri')
