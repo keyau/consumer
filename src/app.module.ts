@@ -6,6 +6,7 @@ import eventstore from './config/eventstore';
 import mongo from './config/mongo';
 import { eventStoreBusConfig } from './event-bus.provider';
 import { EventStoreCqrsModule } from './event-store/eventstore-cqrs/index';
+import { SelectionsModule } from './selections/selections.module';
 
 
 
@@ -33,7 +34,8 @@ import { EventStoreCqrsModule } from './event-store/eventstore-cqrs/index';
         inject: [ConfigService]
       }
     ),
-    AccountsModule
+    AccountsModule,
+    SelectionsModule
   ]
 })
 export class AppModule {}

@@ -41,6 +41,20 @@ describe('AppController (e2e)', () => {
       });
   });
 
+  it('POST /selections', () => {
+    let data = {
+      'accountId': accountId
+    };
+
+    return request(app.getHttpServer())
+      .post('/selections')
+      .send(data) 
+      .expect(201)
+      .then((response) => {
+        expect(response.body.accountId).toBe(data.accountId);
+      });
+  });
+
   afterAll(async () => {
     await app.close();
   });

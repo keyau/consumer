@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CommandBus, QueryBus, ICommand, IQuery } from '@nestjs/cqrs';
-import { Account } from '../models/account.model';
-import { CreateAccountDto } from '../dto/create-account.dto';
-import { AddAccountCommand } from '../commands/impl/add-account.command';
+import { CommandBus, ICommand, IQuery, QueryBus } from '@nestjs/cqrs';
 import { Guid } from '../../tools/guid';
-import { AccountAggregate } from '../models/account.aggregate';
+import { AddAccountCommand } from '../commands/impl/add-account.command';
+import { CreateAccountDto } from '../dto/create-account.dto';
+import { Account } from '../models/account.model';
 import { ReadAccountQuery } from '../queries/impl/read-account.query';
 
 @Injectable()
