@@ -17,7 +17,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('POST /accounts', () => {
-    let data = {
+    const data = {
       'nbCredits': 10
     };
 
@@ -48,7 +48,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('POST /selections', () => {
-    let data = {
+    const data = {
       'accountId': accountId
     };
 

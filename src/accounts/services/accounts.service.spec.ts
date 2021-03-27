@@ -38,7 +38,7 @@ describe('AccountsService', () => {
 
   describe('readAll', () => {
     it('should return list of account', async () => {
-      let result: any = [
+      const result: any = [
         { _id: 'accountId1', nbCredits: 10 },
         { _id: 'accountId2', nbCredits: 20 }];
       jest.spyOn(queryBus, 'execute').mockReturnValue(result);
@@ -48,7 +48,7 @@ describe('AccountsService', () => {
 
   describe('read', () => {
     it('should return a account', async () => {
-      let result: any = { _id: 'accountId', nbCredits: 10 };
+      const result: any = { _id: 'accountId', nbCredits: 10 };
       jest.spyOn(queryBus, 'execute').mockReturnValue(result);
       expect(await service.read(result._id)).toBe(result);
     });
@@ -56,10 +56,10 @@ describe('AccountsService', () => {
 
   describe('add', () => {
     it('should return new account', async () => {
-      let dto: CreateAccountDto = {
+      const dto: CreateAccountDto = {
         nbCredits: 10
       };
-      let result = { _id: 'accountId', nbCredits: dto.nbCredits };
+      const result = { _id: 'accountId', nbCredits: dto.nbCredits };
       jest.spyOn(commandBus, 'execute');
       expect(await (await service.add(dto)).nbCredits).toBe(result.nbCredits);
     });

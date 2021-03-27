@@ -9,7 +9,7 @@ import {
   export class EventStore {
     connection: EventStoreNodeConnection;
   
-    isConnected: boolean = false;
+    isConnected = false;
   
     private logger: Logger = new Logger(this.constructor.name);
   

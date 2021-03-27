@@ -38,10 +38,10 @@ describe('SelectionsService', () => {
 
   describe('activate', () => {
     it('should return new selection', async () => {
-      let dto: ActivateSelectionDto = {
+      const dto: ActivateSelectionDto = {
         accountId: '9ed14b10-7040-4912-95c2-3e3cda328d73'
       };
-      let result = { _id: 'selectionId', accountId: dto.accountId };
+      const result = { _id: 'selectionId', accountId: dto.accountId };
       jest.spyOn(commandBus, 'execute');
       expect(await (await service.activate(dto)).accountId).toBe(result.accountId);
     });

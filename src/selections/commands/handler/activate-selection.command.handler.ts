@@ -20,7 +20,7 @@ export class ActivateSelectionCommandHandler
 
     const { selection } = command;
     
-    let account: Account = await this.accountRepository.findById(selection.accountId);
+    const account: Account = await this.accountRepository.findById(selection.accountId);
     
     const selectionAggregate = this.publisher.mergeObjectContext(
       new SelectionAggregate(selection._id, selection),

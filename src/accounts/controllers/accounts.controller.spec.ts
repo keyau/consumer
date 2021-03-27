@@ -30,7 +30,7 @@ describe('Accounts Controller', () => {
 
   describe('readAll', () => {
     it('should return list of account', async () => {
-      let result = [
+      const result = [
         { _id: 'accountId1', nbCredits: 10 },
         { _id: 'accountId2', nbCredits: 20 }];
       jest.spyOn(accountsService, 'readAll').mockResolvedValue(result);
@@ -40,7 +40,7 @@ describe('Accounts Controller', () => {
 
   describe('read', () => {
     it('should return a account', async () => {
-      let result = { _id: 'accountId', nbCredits: 10 };
+      const result = { _id: 'accountId', nbCredits: 10 };
       jest.spyOn(accountsService, 'read').mockResolvedValue(result);
       expect(await controller.read(result._id)).toBe(result);
     });
@@ -48,10 +48,10 @@ describe('Accounts Controller', () => {
 
   describe('add', () => {
     it('should return new account', async () => {
-      let dto: CreateAccountDto = {
+      const dto: CreateAccountDto = {
         nbCredits: 10
       };
-      let result = { _id: 'accountId', nbCredits: dto.nbCredits };
+      const result = { _id: 'accountId', nbCredits: dto.nbCredits };
       jest.spyOn(accountsService, 'add').mockResolvedValue(result);
       expect(await controller.add(dto)).toBe(result);
     });
