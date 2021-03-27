@@ -2,23 +2,22 @@ import { Logger } from "@nestjs/common";
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { Account } from 'src/accounts/models/account.model';
 import { AccountRepository } from "../../repositories/account.repository";
-import { ReadAccountQuery } from "../impl/read-account.query";
+import { ReadAccountsQuery } from "../impl/read-accounts.query";
 
-@QueryHandler(ReadAccountQuery)
-export class ReadAccountHandler implements IQueryHandler<ReadAccountQuery> {
+@QueryHandler(ReadAccountsQuery)
+export class ReadAccountsHandler implements IQueryHandler<ReadAccountsQuery> {
   private logger: Logger;
   constructor(private repository: AccountRepository) {
     this.logger = new Logger(this.constructor.name);
   }
 
-  async execute(query: ReadAccountQuery): Promise<Account> {
-    this.logger.log('Async ReadAccountHandler...');
+  async execute(query: ReadAccountsQuery): Promise<Account[]> {
+    this.logger.log('Async ReadAccountsHandler...');
 
-    const { id } = query;
     try {
-      return await this.repository.findById(id);
+      return await this.repository.findAll();
     } catch (error) {
-      this.logger.error(`Failed to read account of id ${id}`);
+      this.logger.error(`Failed to read accounts`);
       this.logger.log(error.message);
       this.logger.debug(error.stack);
       throw error;

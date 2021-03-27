@@ -5,6 +5,7 @@ import { AddAccountCommand } from '../commands/impl/add-account.command';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { Account } from '../models/account.model';
 import { ReadAccountQuery } from '../queries/impl/read-account.query';
+import { ReadAccountsQuery } from '../queries/impl/read-accounts.query';
 
 @Injectable()
 export class AccountsService {
@@ -17,6 +18,10 @@ export class AccountsService {
 
   protected async executeQuery(query: IQuery): Promise<any> {
     return await this.queryBus.execute(query);
+  }
+
+  async readAll(): Promise<Account[]> {
+    return await this.executeQuery(new ReadAccountsQuery());
   }
 
   async read(id: string): Promise<Account> {

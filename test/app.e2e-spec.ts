@@ -41,6 +41,12 @@ describe('AppController (e2e)', () => {
       });
   });
 
+  it('GET /accounts', () => {
+    return request(app.getHttpServer())
+      .get('/accounts') 
+      .expect(200);
+  });
+
   it('POST /selections', () => {
     let data = {
       'accountId': accountId

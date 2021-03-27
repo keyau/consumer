@@ -1,11 +1,12 @@
-import { 
-  Controller, 
-  Body, 
-  Param,
-  Get,
+import {
+  Body, Controller,
+
+
+  Get, Param,
+
   Post
 } from '@nestjs/common';
-import { ApiTags, ApiCreatedResponse, ApiParam, ApiOkResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { Account } from '../models/account.model';
 import { AccountsService } from '../services/accounts.service';
@@ -14,6 +15,15 @@ import { AccountsService } from '../services/accounts.service';
 @Controller('accounts')
 export class AccountsController {
   constructor(private service: AccountsService) { }
+
+  @Get()
+  @ApiOkResponse({
+    description: 'The list of account',
+    type: [Account]
+  })
+  async readAll(): Promise<Account[]> {
+    return this.service.readAll();
+  }
 
   @Get('/:id')
   @ApiParam({

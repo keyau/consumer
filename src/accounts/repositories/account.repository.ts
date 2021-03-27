@@ -65,4 +65,16 @@ export class AccountRepository {
       throw error;
     }
   }
+
+  async findAll(): Promise<Account[]> {
+    this.logger.verbose('FIND ALL');
+    try {
+      const result = await this.model.find(null, { __v: 0 });
+      return result;
+    } catch (error) {
+      const message = this.generateErrorMessage(error, 'findAll');
+      this.logger.verbose(message.verbose);
+      throw error;
+    }
+  }
 }

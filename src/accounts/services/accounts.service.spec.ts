@@ -1,6 +1,5 @@
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Test, TestingModule } from '@nestjs/testing';
-import { query } from 'express';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { AccountsService } from './accounts.service';
 
@@ -35,6 +34,16 @@ describe('AccountsService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  describe('readAll', () => {
+    it('should return list of account', async () => {
+      let result: any = [
+        { _id: 'accountId1', nbCredits: 10 },
+        { _id: 'accountId2', nbCredits: 20 }];
+      jest.spyOn(queryBus, 'execute').mockReturnValue(result);
+      expect(await service.readAll()).toBe(result);
+    });
   });
 
   describe('read', () => {

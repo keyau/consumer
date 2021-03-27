@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AccountsController } from './accounts.controller';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { AccountsService } from '../services/accounts.service';
+import { AccountsController } from './accounts.controller';
 
 describe('Accounts Controller', () => {
   let controller: AccountsController;
@@ -13,6 +13,7 @@ describe('Accounts Controller', () => {
       providers: [{
         provide: AccountsService,
         useValue: {
+          readAll: jest.fn(),
           read: jest.fn(),
           add: jest.fn()
         }
@@ -25,6 +26,16 @@ describe('Accounts Controller', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  describe('readAll', () => {
+    it('should return list of account', async () => {
+      let result = [
+        { _id: 'accountId1', nbCredits: 10 },
+        { _id: 'accountId2', nbCredits: 20 }];
+      jest.spyOn(accountsService, 'readAll').mockResolvedValue(result);
+      expect(await controller.readAll()).toBe(result);
+    });
   });
 
   describe('read', () => {
