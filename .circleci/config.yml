@@ -34,8 +34,8 @@ jobs:
           command: eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
       # Test the source code
       - run:
-        name: Install JUnit coverage reporter
-        command: yarn add --dev jest-junit
+          name: Install JUnit coverage reporter
+          command: yarn add --dev jest-junit
       - run:
           name: Testing
           command: jest --ci --runInBand --reporters=default --reporters=jest-junit
