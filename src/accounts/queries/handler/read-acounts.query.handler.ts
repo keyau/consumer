@@ -10,8 +10,8 @@ export class ReadAccountsHandler implements IQueryHandler<ReadAccountsQuery> {
   constructor(private repository: AccountRepository) {
     this.logger = new Logger(this.constructor.name);
   }
-
-  async execute(query: ReadAccountsQuery): Promise<Account[]> {
+ 
+  async execute(query: ReadAccountsQuery): Promise<Account[]> { // eslint-disable-line
     this.logger.log('Async ReadAccountsHandler...');
 
     try {

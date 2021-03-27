@@ -6,7 +6,6 @@ import { SelectionsService } from './selections.service';
 describe('SelectionsService', () => {
   let service: SelectionsService;
   let commandBus: CommandBus;
-  let queryBus: QueryBus;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -29,7 +28,6 @@ describe('SelectionsService', () => {
 
     service = module.get<SelectionsService>(SelectionsService);
     commandBus = module.get<CommandBus>(CommandBus);
-    queryBus = module.get<QueryBus>(QueryBus);
   });
 
   it('should be defined', () => {

@@ -1,6 +1,5 @@
 import { Logger } from "@nestjs/common";
 import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
-import { Account } from "../../../accounts/models/account.model";
 import { AccountRepository } from "../../../accounts/repositories/account.repository";
 import { SelectionAggregate } from "../../../selections/models/selection.aggregate";
 import { ActivateSelectionCommand } from "../impl/activate-selection.command";
@@ -20,7 +19,7 @@ export class ActivateSelectionCommandHandler
 
     const { selection } = command;
     
-    const account: Account = await this.accountRepository.findById(selection.accountId);
+    await this.accountRepository.findById(selection.accountId);
     
     const selectionAggregate = this.publisher.mergeObjectContext(
       new SelectionAggregate(selection._id, selection),

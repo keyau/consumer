@@ -29,7 +29,7 @@ export class AccountsService {
   }
 
   async add(object: CreateAccountDto): Promise<Account> {
-    const account: Account = new Account(Guid.create_UUID(), object);
+    const account: Account = new Account(Guid.createUuid(), object);
     await this.executeCommand(new AddAccountCommand(account));
     return account;
   }
