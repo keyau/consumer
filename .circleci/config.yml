@@ -29,10 +29,10 @@ jobs:
       - run: mkdir reports
 
       # Lint the source code
-      - run:
-          name: Linting
-          command: |
-            ./node_modules/.bin/eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
+      # - run:
+      #     name: Linting
+      #     command: |
+      #       ./node_modules/.bin/eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
       # Test the source code
       - run:
           name: Testing
