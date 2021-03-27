@@ -29,9 +29,9 @@ jobs:
       - run: mkdir reports
 
       # Lint the source code
-      - run:
-          name: Linting
-          command: eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
+      # - run:
+      #     name: Linting
+      #     command: eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
       # Test the source code
       - run:
           name: Install JUnit coverage reporter
