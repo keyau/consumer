@@ -32,20 +32,19 @@ jobs:
       - run:
           name: Linting
           command: |
-            eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
+            ./node_modules/.bin/eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
       # Test the source code
       - run:
           name: Testing
           command: |
             yarn add --dev jest-junit
-            jest --ci --runInBand --reporters=default --reporters=jest-junit
+            ./node_modules/.bin/jest --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/jest/
       # Test coverage the source code
       - run:
           name: Coverage
-          command: |
-            jest --coverage
+          command: npm run test:cov
       # End to End test
       # - run:
       #     name: End to End Test
