@@ -56,7 +56,7 @@ jobs:
       - store_artifacts:
           path: ./reports/eslint/eslint.xml
       - store_artifacts:
-          path: ./reports/jest/test-results.xml
+          path: ./reports/jest/junit.xml
       - store_artifacts: # upload test coverage as artifact
           path: ./coverage/lcov.info
           prefix: tests
