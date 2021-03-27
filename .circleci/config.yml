@@ -29,22 +29,23 @@ jobs:
       - run: mkdir reports
 
       # Lint the source code
-      # - run:
-      #     name: Linting
-      #     command: eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
+      - run:
+          name: Linting
+          command: |
+            eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
       # Test the source code
       - run:
-          name: Install JUnit coverage reporter
-          command: yarn add --dev jest-junit
-      - run:
           name: Testing
-          command: jest --ci --runInBand --reporters=default --reporters=jest-junit
+          command: |
+            yarn add --dev jest-junit
+            jest --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/jest/
       # Test coverage the source code
       - run:
           name: Coverage
-          command: jest --coverage
+          command: |
+            jest --coverage
       # End to End test
       # - run:
       #     name: End to End Test
