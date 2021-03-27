@@ -25,18 +25,41 @@ jobs:
           key: v1-dependencies-{{ checksum "package-lock.json" }}
           paths:
               - node_modules
+
+      - run: mkdir reports
+
       # Lint the source code
-      #- run:
-      #    name: Linting
-      #    command: npm run lint
+      - run:
+          name: Linting
+          command: eslint "{src,apps,libs,test}/**/*.ts" --format junit --output-file ./reports/eslint/eslint.xml
       # Test the source code
       - run:
+        name: Install JUnit coverage reporter
+        command: yarn add --dev jest-junit
+      - run:
           name: Testing
-          command: npm run test
+          command: jest --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./reports/jest/
+      # Test coverage the source code
+      - run:
+          name: Coverage
+          command: jest --coverage
       # End to End test
       # - run:
       #     name: End to End Test
       #     command: npm run e2e
+
+      # Upload results
+      - store_test_results:
+          path: reports
+      - store_artifacts:
+          path: ./reports/eslint/eslint.xml
+      - store_artifacts:
+          path: ./reports/jest/test-results.xml
+      - store_artifacts: # upload test coverage as artifact
+          path: ./coverage/lcov.info
+          prefix: tests
 workflows:
   version: 2
   my_workflow:
