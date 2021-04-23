@@ -1,16 +1,5 @@
-import { AccountAddedEvent } from './accounts/events/impl/account-added.event';
+import { EventInstantiators } from './event-store/event-store.const';
 import { EventStoreBusConfig, EventStoreSubscriptionType } from './event-store/eventstore-cqrs/index';
-import { SelectionActivatedEvent } from './selections/events/impl/selection-activated.event';
-
-export const AccountEventInstantiators = {
-  AccountAddedEvent: (_id, nbCredits) =>
-    new AccountAddedEvent(_id, nbCredits)
-};
-
-export const SelectionEventInstantiators = {
-  SelectionActivatedEvent: (_id, data) =>
-    new SelectionActivatedEvent(_id, data)
-};
 
 export const eventStoreBusConfig: EventStoreBusConfig = {
   subscriptions: [
@@ -25,8 +14,5 @@ export const eventStoreBusConfig: EventStoreBusConfig = {
       persistentSubscriptionName: 'selection',
     }
   ],
-  eventInstantiators: {
-    ...AccountEventInstantiators,
-    ...SelectionEventInstantiators
-  },
+  eventInstantiators: EventInstantiators,
 };
