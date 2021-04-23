@@ -3,8 +3,8 @@ import { EventStoreBusConfig, EventStoreSubscriptionType } from './event-store/e
 import { SelectionActivatedEvent } from './selections/events/impl/selection-activated.event';
 
 export const AccountEventInstantiators = {
-  AccountAddedEvent: (_id, data) =>
-    new AccountAddedEvent(_id, data)
+  AccountAddedEvent: (_id, nbCredits) =>
+    new AccountAddedEvent(_id, nbCredits)
 };
 
 export const SelectionEventInstantiators = {

@@ -1,15 +1,13 @@
 import { AggregateRoot } from "@nestjs/cqrs";
-import { IAccount } from "./account.model.interface";
 import { IsDefined } from 'class-validator';
 import { AccountAddedEvent } from "../events/impl/account-added.event";
+import { IAccount } from "./account.model.interface";
 
 export class AccountAggregate extends AggregateRoot implements IAccount {
-  constructor(id: string, account?: any) {
+  constructor(id: string, nbCredits: number) {
     super();
     this._id = id;
-    if (account) {
-      this.nbCredits = account.nbCredits ? account.nbCredits : undefined;
-    }
+    this.nbCredits = nbCredits;
   }
 
   @IsDefined()
@@ -18,7 +16,15 @@ export class AccountAggregate extends AggregateRoot implements IAccount {
   @IsDefined()
   nbCredits: number;
 
+  @IsDefined()
+  nbCreditsConsumed: number;
+
   add() {
-    this.apply(new AccountAddedEvent(this._id, this));
+    this.apply(new AccountAddedEvent(this._id, this.nbCredits));
+  }
+
+  onAccountAddedEvent(event: AccountAddedEvent){
+    this._id = event.id;
+    this.nbCredits = event.nbCredits;
   }
 }
