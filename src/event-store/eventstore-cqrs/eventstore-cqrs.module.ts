@@ -9,6 +9,7 @@ import {
 } from '../event-store.module';
 import { EventBusProvider, EventStoreBusConfig } from './event-bus.provider';
 import { EventPublisher } from './event-publisher';
+import { EventStoreRepository } from './event-store.repository';
 
 @Global()
 @Module({})
@@ -57,6 +58,16 @@ export class EventStoreCqrsModule {
           provide: EventBusProvider,
           useExisting: EventBus,
         },
+        {
+          provide: EventStoreRepository,
+          useFactory: (eventStore) => {
+            return new EventStoreRepository(
+              eventStore, 
+              eventStoreBusConfig,
+            );
+          },
+          inject: [EventStore],
+        }
       ],
       exports: [
         EventStoreModule,
@@ -66,6 +77,7 @@ export class EventStoreCqrsModule {
         QueryBus,
         ExplorerService,
         EventPublisher,
+        EventStoreRepository,
       ],
     };
   }
