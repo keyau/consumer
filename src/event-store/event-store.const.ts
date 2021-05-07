@@ -1,10 +1,13 @@
-import { AccountAddedEvent } from "src/accounts/events/impl/account-added.event";
-import { SelectionActivatedEvent } from "src/selections/events/impl/selection-activated.event";
+import { AccountAddedEvent } from "../accounts/events/impl/account-added.event";
+import { CreditConsumedEvent } from "../accounts/events/impl/credit-consumed.event";
+import { SelectionActivatedEvent } from "../selections/events/impl/selection-activated.event";
 import { IEventConstructors } from "./shared/event-constructors.interface";
 
 export const AccountEventInstantiators = {
   AccountAddedEvent: (id, nbCredits) =>
-    new AccountAddedEvent(id, nbCredits)
+    new AccountAddedEvent(id, nbCredits),
+  CreditConsumedEvent: (id, accountId) => 
+    new CreditConsumedEvent(id, accountId)
 };
 
 export const SelectionEventInstantiators = {
