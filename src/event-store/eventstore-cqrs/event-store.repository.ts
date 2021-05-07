@@ -25,7 +25,7 @@ export class EventStoreRepository {
       
     const stream = aggregateName + '-' + aggregateId;
 
-    var aggregateEvents = (await this.eventStore.connection.readStreamEventsBackward(stream, 0, 10, true))
+    const aggregateEvents = (await this.eventStore.connection.readStreamEventsBackward(stream, 0, 10, true))
       .events
       .map(
         event => this.getEventFromPayload(event)

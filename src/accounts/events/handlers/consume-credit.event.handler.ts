@@ -10,7 +10,7 @@ export class CreditConsumedEventHandler implements IEventHandler<CreditConsumedE
   constructor(private repository: AccountRepository) {}
   async handle(event: CreditConsumedEvent) {
     this.logger.verbose(`EVENT TRIGGERED: ${event.constructor.name}}`);
-    const { accountId, selectionId } = event;
+    const { accountId } = event;
     try {
       const account = await this.repository.findById(accountId);
       account.nbCredits -= 1;

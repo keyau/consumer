@@ -36,8 +36,7 @@ export class AccountAggregate extends AggregateRoot implements IAccount {
     this.nbCredits = event.nbCredits;
   }
 
-  onCreditConsumedEvent(event: CreditConsumedEvent){
+  onCreditConsumedEvent(event: CreditConsumedEvent){ // eslint-disable-line
     this.nbCreditsConsumed += 1;
   }
-  
 }
