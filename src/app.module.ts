@@ -29,7 +29,8 @@ import { SelectionsModule } from './selections/selections.module';
     MongooseModule.forRootAsync(
       {
         useFactory: async (config: ConfigService) => ({
-          uri: config.get('mongo.uri')
+          uri: config.get('mongo.uri'),
+          useFindAndModify: false
         }),
         inject: [ConfigService]
       }

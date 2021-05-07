@@ -16,7 +16,7 @@ export class SelectionsService {
 
   async activate(object: ActivateSelectionDto): Promise<Selection> {
     const selection: Selection = new Selection(Guid.createUuid(), object.accountId);
-    await this.executeCommand(new ActivateSelectionCommand(selection));
+    await this.executeCommand(new ActivateSelectionCommand(selection._id, selection.accountId));
     return selection;
   }
 }

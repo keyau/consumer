@@ -4,12 +4,10 @@ import { SelectionActivatedEvent } from "../events/impl/selection-activated.even
 import { ISelection } from "./selection.model.interface";
 
 export class SelectionAggregate extends AggregateRoot implements ISelection {
-  constructor(id: string, selection?: any) {
+  constructor(id: string, accountId: string) {
     super();
     this._id = id;
-    if (selection) {
-      this.accountId = selection.accountId ? selection.accountId : undefined;
-    }
+    this.accountId = accountId;
   }
 
   @IsDefined()
@@ -19,6 +17,6 @@ export class SelectionAggregate extends AggregateRoot implements ISelection {
   accountId: string;
 
   add() {
-    this.apply(new SelectionActivatedEvent(this._id, this));
+    this.apply(new SelectionActivatedEvent(this._id, this.accountId));
   }
 }

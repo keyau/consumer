@@ -1,7 +1,7 @@
 export class SelectionActivatedEvent {
   constructor(
     public id: string,
-    public data: any
+    public accountId: string
   ) { }
 
   get streamName() {

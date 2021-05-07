@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
-import { EventBusProvider } from './event-bus.provider';
 import { IAggregateEvent } from '../shared/aggregate-event.interface';
+import { EventBusProvider } from './event-bus.provider';
 
 export interface Constructor<T> {
   new(...args: any[]): T;

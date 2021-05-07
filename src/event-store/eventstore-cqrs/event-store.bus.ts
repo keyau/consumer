@@ -1,25 +1,18 @@
-import { IEvent } from '@nestjs/cqrs';
-import { Subject } from 'rxjs';
-import {
-  EventData,
-  createEventData,
-  EventStorePersistentSubscription,
-  ResolvedEvent,
-  EventStoreCatchUpSubscription,
-} from 'node-eventstore-client';
-import { v4 } from 'uuid';
 import { Logger } from '@nestjs/common';
+import { IEvent } from '@nestjs/cqrs';
+import {
+  createEventData, EventData,
+  EventStoreCatchUpSubscription, EventStorePersistentSubscription,
+  ResolvedEvent
+} from 'node-eventstore-client';
+import { Subject } from 'rxjs';
+import { v4 } from 'uuid';
 import { EventStore } from '../event-store.class';
+import { IEventConstructors } from '../shared/event-constructors.interface';
 import {
   EventStoreBusConfig,
-  EventStoreSubscriptionType,
-  EventStorePersistentSubscription as ESPersistentSubscription,
-  EventStoreCatchupSubscription as ESCatchUpSubscription,
+  EventStoreCatchupSubscription as ESCatchUpSubscription, EventStorePersistentSubscription as ESPersistentSubscription, EventStoreSubscriptionType
 } from './event-bus.provider';
-
-export interface IEventConstructors {
-  [key: string]: (...args: any[]) => IEvent;
-}
 
 interface ExtendedCatchUpSubscription extends EventStoreCatchUpSubscription {
   isLive: boolean | undefined;

@@ -1,7 +1,7 @@
 export class AccountAddedEvent {
   constructor(
     public id: string,
-    public data: any
+    public nbCredits: number
   ) { }
 
   get streamName() {
