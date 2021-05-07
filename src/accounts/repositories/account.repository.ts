@@ -50,6 +50,23 @@ export class AccountRepository {
     }
   }
 
+  async update(data: any): Promise<void> {
+    this.logger.verbose('UPDATE');
+    console.table(data._doc);
+    try {
+      await this.model.findOneAndUpdate(data._id, data);
+    } catch (error) {
+      const message = this.generateErrorMessage(
+        error,
+        'update',
+        data._id,
+        data._doc,
+      );
+      this.logger.verbose(message.verbose);
+      throw error;
+    }
+  }
+
   async findById(id: string): Promise<Account> {
     this.logger.verbose('FIND BY ID');
     console.table({ id });
