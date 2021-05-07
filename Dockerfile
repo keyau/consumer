@@ -31,6 +31,9 @@ RUN npm run build
 
 FROM node:14.1.0 AS production
 
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
 # install chrome for protractor tests
 #RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 #RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
