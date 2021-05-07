@@ -5,7 +5,7 @@ import { AccountAddedEvent } from "../impl/account-added.event";
 
 @EventsHandler(AccountAddedEvent)
 export class AddAccountEventHandler implements IEventHandler<AccountAddedEvent> {
-  private logger = new Logger('AddEventHandler');
+  private logger = new Logger('AddAccountEventHandler');
 
   constructor(private repository: AccountRepository) {}
   async handle(event: AccountAddedEvent) {

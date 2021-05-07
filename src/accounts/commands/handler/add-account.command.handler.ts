@@ -12,11 +12,12 @@ export class AddAccountCommandHandler
   }
 
   async execute(command: AddAccountCommand): Promise<void> {
-    this.logger.log('COMMAND TRIGGERED: AddCommandHandler...');
-    const personAggregate = this.publisher.mergeObjectContext(
+    this.logger.log('COMMAND TRIGGERED: AddAccountCommandHandler...');
+
+    const accountAggregate = this.publisher.mergeObjectContext(
       new AccountAggregate(command._id, command.nbCredits),
     );
-    personAggregate.add();
-    personAggregate.commit();
+    accountAggregate.add();
+    accountAggregate.commit();
   }
 }
