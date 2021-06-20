@@ -54,7 +54,8 @@ export class AccountRepository {
     this.logger.verbose('UPDATE');
     console.table(data._doc);
     try {
-      await this.model.findOneAndUpdate(data._id, data);
+      const {_id, ...dataToUpdate} = data;
+      await this.model.findOneAndUpdate(data._id, dataToUpdate);
     } catch (error) {
       const message = this.generateErrorMessage(
         error,
