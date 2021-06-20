@@ -1,0 +1,20 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: mongodb-cluster
+spec:
+  members: 2
+  type: ReplicaSet
+  version: "4.2.6"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: defaultUser
+      db: admin
+      passwordSecretRef: 
+        name: dev-mongodb-user-password
+      roles: 
+        - name: readWrite
+          db: consumer
+      scramCredentialsSecretName: defaultUser

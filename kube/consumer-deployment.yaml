@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer
+  namespace: consumer
+spec:
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+      - name: consumer
+        image: keyau/consumer:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+        env:
+        - name: EVENT_STORE_TCP_HOST
+          value: "eventstore-cluster.eventstore.svc.cluster.local"
+        - name: EVENT_STORE_TCP_PORT
+          value: "1113"
+        - name: EVENT_STORE_USERNAME
+          value: "admin"
+        - name: EVENT_STORE_PASSWORD
+          value: "changeit"
+        - name: MONGODB_URI
+          value: "mongodb://defaultUser:password@mongodb-cluster-0.mongodb-cluster-svc.mongodb.svc.cluster.local,mongodb-cluster-1.mongodb-cluster-svc.mongodb.svc.cluster.local:27017/consumer?replicaSet=mongodb-cluster"
