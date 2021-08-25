@@ -12,6 +12,7 @@ export class AccountAggregate extends AggregateRoot implements IAccount {
     super();
     this._id = id;
     this.nbCredits = nbCredits;
+    this.selections = new Array<string>();
   }
 
   @IsDefined()
@@ -23,20 +24,30 @@ export class AccountAggregate extends AggregateRoot implements IAccount {
   @IsDefined()
   nbCreditsConsumed: number;
 
+  @IsDefined()
+  selections: Array<string>;
+
   add() {
     this.apply(new AccountAddedEvent(this._id, this.nbCredits));
   }
 
-  consumeCredit(selectionId: string){
-    this.apply(new CreditConsumedEvent(this._id, selectionId));
+  tryConsumeCredit(selectionId: string){
+    if (!this.selections.includes(selectionId))
+    {
+      this.apply(new CreditConsumedEvent(this._id, selectionId));
+      return true;
+    }
+    return false;
   }
 
   onAccountAddedEvent(event: AccountAddedEvent){
     this._id = event.id;
     this.nbCredits = event.nbCredits;
+    this.selections = new Array<string>();
   }
 
   onCreditConsumedEvent(event: CreditConsumedEvent){ // eslint-disable-line
     this.nbCreditsConsumed += 1;
+    this.selections.push(event.selectionId);
   }
 }

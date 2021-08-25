@@ -22,7 +22,12 @@ export class ConsumeCreditCommandHandler
     accountAggregate = this.publisher.mergeObjectContext(
       accountAggregate
     );
-    accountAggregate.consumeCredit(command.selectionId);
-    accountAggregate.commit();    
+    if (accountAggregate.tryConsumeCredit(command.selectionId))
+    {
+      accountAggregate.commit();
+    }
+    else {
+      this.logger.log(`A credit has already been consumed for this selection ${command.selectionId}`);
+    }
   }
 }
