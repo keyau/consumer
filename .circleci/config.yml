@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   build:
     working_directory: ~/consumer
@@ -45,6 +47,8 @@ jobs:
       - run:
           name: Coverage
           command: npm run test:cov
+      - codecov/upload:
+          file: ./coverage/lcov.info
       # End to End test
       # - run:
       #     name: End to End Test
@@ -59,7 +63,6 @@ jobs:
           path: ./reports/jest/junit.xml
       - store_artifacts: # upload test coverage as artifact
           path: ./coverage/lcov.info
-          prefix: tests
 workflows:
   version: 2
   my_workflow:
