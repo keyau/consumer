@@ -47,6 +47,7 @@ jobs:
       - run:
           name: Coverage
           command: npm run test:cov
+      # Upload code coverage on codeCov
       - codecov/upload:
           file: ./coverage/lcov.info
       # End to End test
