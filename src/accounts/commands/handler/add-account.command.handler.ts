@@ -1,7 +1,7 @@
-import { CommandHandler, ICommandHandler, EventPublisher } from "@nestjs/cqrs";
-import { AddAccountCommand } from "../impl/add-account.command";
 import { Logger } from "@nestjs/common";
+import { CommandHandler, EventPublisher, ICommandHandler } from "@nestjs/cqrs";
 import { AccountAggregate } from "../../models/account.aggregate";
+import { AddAccountCommand } from "../impl/add-account.command";
 
 @CommandHandler(AddAccountCommand)
 export class AddAccountCommandHandler
@@ -12,12 +12,12 @@ export class AddAccountCommandHandler
   }
 
   async execute(command: AddAccountCommand): Promise<void> {
-    this.logger.log('COMMAND TRIGGERED: AddCommandHandler...');
-    const { account } = command;
-    const personAggregate = this.publisher.mergeObjectContext(
-      new AccountAggregate(account._id, account),
+    this.logger.log('COMMAND TRIGGERED: AddAccountCommandHandler...');
+
+    const accountAggregate = this.publisher.mergeObjectContext(
+      new AccountAggregate(command._id, command.nbCredits),
     );
-    personAggregate.add();
-    personAggregate.commit();
+    accountAggregate.add();
+    accountAggregate.commit();
   }
 }

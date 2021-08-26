@@ -29,8 +29,8 @@ export class AccountsService {
   }
 
   async add(object: CreateAccountDto): Promise<Account> {
-    const account: Account = new Account(Guid.createUuid(), object);
-    await this.executeCommand(new AddAccountCommand(account));
+    const account: Account = new Account(Guid.createUuid(), object.nbCredits);
+    await this.executeCommand(new AddAccountCommand(account._id, account.nbCredits));
     return account;
   }
 }

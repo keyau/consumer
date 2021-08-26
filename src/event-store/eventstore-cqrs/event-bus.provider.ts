@@ -1,23 +1,20 @@
 import { Injectable, OnModuleDestroy, Type } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
+import {
+  CommandBus, IEvent, IEventHandler,
+  InvalidSagaException,
+  ISaga, ObservableBus
+} from '@nestjs/cqrs';
+import {
+  EVENTS_HANDLER_METADATA, SAGA_METADATA
+} from '@nestjs/cqrs/dist/decorators/constants';
+import { CqrsOptions } from '@nestjs/cqrs/dist/interfaces/cqrs-options.interface';
 import { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { isFunction } from 'util';
-import {
-  IEventHandler,
-  IEvent,
-  ObservableBus,
-  CommandBus,
-  InvalidSagaException,
-  ISaga,
-} from '@nestjs/cqrs';
-import {
-  SAGA_METADATA,
-  EVENTS_HANDLER_METADATA,
-} from '@nestjs/cqrs/dist/decorators/constants';
-import { EventStoreBus, IEventConstructors } from './event-store.bus';
 import { EventStore } from '../event-store.class';
-import { CqrsOptions } from '@nestjs/cqrs/dist/interfaces/cqrs-options.interface';
+import { IEventConstructors } from '../shared/event-constructors.interface';
+import { EventStoreBus } from './event-store.bus';
 
 export enum EventStoreSubscriptionType {
   Persistent,

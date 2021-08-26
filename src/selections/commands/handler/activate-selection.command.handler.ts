@@ -17,12 +17,12 @@ export class ActivateSelectionCommandHandler
   async execute(command: ActivateSelectionCommand): Promise<void> {
     this.logger.log('COMMAND TRIGGERED: ActivateSelectionCommandHandler...');
 
-    const { selection } = command;
+    const { _id, accountId } = command;
     
-    await this.accountRepository.findById(selection.accountId);
+    await this.accountRepository.findById(accountId);
     
     const selectionAggregate = this.publisher.mergeObjectContext(
-      new SelectionAggregate(selection._id, selection),
+      new SelectionAggregate(_id, accountId),
     );
     selectionAggregate.add();
     selectionAggregate.commit();
