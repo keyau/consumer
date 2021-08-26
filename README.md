@@ -4,6 +4,8 @@ Api Consumer is a sample of management credit account.
 
 This api is based on CQRS and event sourcing architecture with [Nest](https://github.com/nestjs/nest) framework and [Eventstore](https://eventstore.com/) + [MongoDB](https://www.mongodb.com/fr) databases.
 
+[![keyau](https://circleci.com/gh/keyau/consumer.svg?style=svg)](https://app.circleci.com/pipelines/github/keyau/consumer)
+
 ## Installation
 
 ```bash
