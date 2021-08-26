@@ -12,6 +12,7 @@ services:
       - /app/node_modules
     ports:
       - 3000:3000
+      - 9229:9229
     command: >
       sh -c "./scripts/wait-for-it.sh eventstore:1113
       && sleep 10
@@ -23,6 +24,8 @@ services:
       EVENT_STORE_USERNAME: admin
       EVENT_STORE_PASSWORD: changeit
       MONGODB_URI: mongodb://defaultUser:password@mongo:27017/consumer
+      DEBUG: "*"
+      NODE_ENV: "development"
     networks:
       - backend
     depends_on:

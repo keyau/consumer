@@ -7,6 +7,7 @@ import { SelectionsController } from './controllers/selections.controller';
 import { SelectionEventHandlers } from './events/handler';
 import { Selection, SelectionSchema } from './models/selection.model';
 import { SelectionRepository } from './repositories/selection.repository';
+import { SelectionsSagas } from './sagas/selections.sagas';
 import { SelectionsService } from './services/selections.service';
 
 @Module({
@@ -18,6 +19,7 @@ import { SelectionsService } from './services/selections.service';
     SelectionsService,
     SelectionRepository,
     AccountRepository,
+    SelectionsSagas,
     ...SelectionCommandHandlers,
     ...SelectionEventHandlers,
   ]

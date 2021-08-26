@@ -13,6 +13,18 @@
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "port": 9229
+    },
+    {
+      "name": "Debug api",
+      "type": "node",
+      "request": "attach",
+      "restart": true,
+      "address": "0.0.0.0",
+      "port": 9229,
+      "protocol": "inspector",
+      "remoteRoot": "/app",
+      "localRoot": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }

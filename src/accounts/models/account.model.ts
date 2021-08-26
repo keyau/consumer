@@ -7,11 +7,9 @@ export type AccountDocument = Account & Document;
 
 @Schema()
 export class Account implements IAccount {
-  constructor(id: string, account?: any) {
+  constructor(id: string, nbCredits: number) {
     this._id = id;
-    if (account) {
-      this.nbCredits = account.nbCredits ? account.nbCredits : undefined;
-    }
+    this.nbCredits = nbCredits;
   }
 
   @ApiProperty({
