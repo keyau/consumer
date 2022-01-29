@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mongo-express
+  name: mongo-express
+  namespace: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+      - env:
+        - name: ME_CONFIG_MONGODB_URL
+          value: "mongodb://mongodb-cluster-0.mongodb-cluster-svc.mongodb.svc.cluster.local,mongodb-cluster-1.mongodb-cluster-svc.mongodb.svc.cluster.local:27017/admin?replicaSet=mongodb-cluster"
+        # - name: ME_CONFIG_MONGODB_SERVER
+        #   value: "mongodb-cluster-0.mongodb-cluster-svc.mongodb.svc.cluster.local,mongodb-cluster-1.mongodb-cluster-svc.mongodb.svc.cluster.local"
+        - name: ME_CONFIG_MONGODB_ENABLE_ADMIN
+          value: "true"
+        - name: ME_CONFIG_BASICAUTH_USERNAME
+          value: "admin-username"
+        - name: ME_CONFIG_BASICAUTH_PASSWORD
+          value: "admin-password"
+        # - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+        #   value: "root"
+        # - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+        #   value: "password"
+        image: mongo-express:latest
+        imagePullPolicy: Always
+        name: mongo-express
+        ports:
+        - containerPort: 8081
+          protocol: TCP
+      restartPolicy: Always
